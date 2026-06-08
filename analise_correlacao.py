@@ -3,10 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from io import StringIO
 
-# =====================
-# CARREGAMENTO DOS DADOS
-# =====================
-
 with open("campinas_clima.csv", "r") as f:
     lines = f.readlines()
 
@@ -28,10 +24,6 @@ clima_anual = clima.groupby("YEAR")[["T2M", "RH2M", "PRECTOTCORR"]].mean().reset
 df = pd.merge(clima_anual, cafe[["Ano", "Rendimento_medio_cafe_kg_ha", "Quantidade_produzida_cafe_t"]],
               left_on="YEAR", right_on="Ano")
 
-# =====================
-# SEÇÃO 5 — CORRELAÇÃO
-# =====================
-
 # Matriz de correlação
 corr = df[["T2M", "RH2M", "PRECTOTCORR", "Rendimento_medio_cafe_kg_ha"]].corr()
 
@@ -42,10 +34,6 @@ print(corr["Rendimento_medio_cafe_kg_ha"].sort_values(ascending=False))
 
 print("\nMatriz completa:")
 print(corr.round(2))
-
-# =====================
-# HEATMAP
-# =====================
 
 fig, ax = plt.subplots(figsize=(8, 6))
 mat = corr.values
@@ -65,10 +53,6 @@ for i in range(len(cols)):
 ax.set_title("Heatmap de Correlação — Clima x Rendimento do Café")
 plt.tight_layout()
 plt.show()
-
-# =====================
-# SCATTERPLOTS
-# =====================
 
 for feature, label in [("T2M", "Temperatura média anual (°C)"),
                         ("RH2M", "Umidade relativa média anual (%)"),
