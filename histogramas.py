@@ -61,5 +61,3 @@ for ax, (col, label, cor) in zip(axes2, variaveis_cafe):
 
 plt.tight_layout()
 plt.show()
-
-print("Histogramas gerados: hist_clima.png, hist_cafe.png")

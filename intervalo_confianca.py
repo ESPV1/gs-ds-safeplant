@@ -33,10 +33,6 @@ def ic_95(serie):
     margem = t_critico * ep
     return media, margem, media - margem, media + margem, n
 
-print("=" * 60)
-print("INTERVALOS DE CONFIANÇA (95%) – distribuição t de Student")
-print("=" * 60)
-
 variaveis = {
     "Temperatura média anual (°C)":        cli_anual["Temp_media"],
     "Umidade relativa média anual (%)":    cli_anual["Umidade_media"],
@@ -49,16 +45,10 @@ resultados = []
 for nome, serie in variaveis.items():
     media, margem, li, ls, n = ic_95(serie)
     resultados.append((nome, media, li, ls, margem, n))
-    print(f"\n{nome}")
-    print(f"  n = {n} | Média = {media:.2f}")
-    print(f"  IC 95%: [{li:.2f} ; {ls:.2f}]  (±{margem:.2f})")
 
 fig, ax = plt.subplots(figsize=(10, 6))
 
 nomes_curtos = ["Temperatura\n(°C)", "Umidade\n(%)", "Precipitação\n(mm/ano)", "Rendimento\ncafé (kg/ha)", "Qtd produzida\n(t)"]
-medias  = [r[1] for r in resultados]
-erros   = [r[4] for r in resultados]
-
 cores = ["#1565C0", "#2E7D32", "#6A1B9A", "#E53935", "#F57F17"]
 
 for i, (nome, media, li, ls, margem, n) in enumerate(resultados):
@@ -72,5 +62,3 @@ ax.set_title("Intervalos de Confiança (95%) por Variável", fontsize=13, fontwe
 ax.grid(axis="y", alpha=0.3)
 plt.tight_layout()
 plt.show()
-
-print("\nGráfico salvo: intervalos_confianca.png")
