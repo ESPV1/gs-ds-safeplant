@@ -52,15 +52,19 @@ for i in range(len(cols)):
 
 ax.set_title("Heatmap de Correlação — Clima x Rendimento do Café")
 plt.tight_layout()
+plt.savefig("heatmap_correlacao.png", dpi=150, bbox_inches="tight")
 plt.show()
 
-for feature, label in [("T2M", "Temperatura média anual (°C)"),
-                        ("RH2M", "Umidade relativa média anual (%)"),
-                        ("PRECTOTCORR", "Precipitação média anual (mm/dia)")]:
+for feature, label, fname in [
+    ("T2M",         "Temperatura média anual (°C)",       "scatter_temp"),
+    ("RH2M",        "Umidade relativa média anual (%)",    "scatter_umidade"),
+    ("PRECTOTCORR", "Precipitação média anual (mm/dia)",   "scatter_chuva"),
+]:
     plt.figure(figsize=(7, 5))
     plt.scatter(df[feature], df["Rendimento_medio_cafe_kg_ha"], color="steelblue", alpha=0.8)
     plt.xlabel(label)
     plt.ylabel("Rendimento do café (kg/ha)")
     plt.title(f"Scatterplot: {label} vs Rendimento do Café")
     plt.tight_layout()
+    plt.savefig(f"{fname}.png", dpi=150, bbox_inches="tight")
     plt.show()

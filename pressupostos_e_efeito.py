@@ -34,9 +34,9 @@ variaveis = {
 
 for nome, serie in variaveis.items():
     stat, p = stats.shapiro(serie)
-    resultado = "✓ Normal (p > 0.05)" if p > 0.05 else "✗ Não-normal (p ≤ 0.05)"
+    resultado = "Normal (p > 0.05)" if p > 0.05 else "Nao-normal (p <= 0.05)"
     print(f"  {nome}")
-    print(f"    Estatística W = {stat:.4f} | p-valor = {p:.4f} → {resultado}")
+    print(f"    Estatistica W = {stat:.4f} | p-valor = {p:.4f} -> {resultado}")
 
 # Levene – homogeneidade das variâncias entre dois grupos
 print("\n--- Teste de Levene (homogeneidade de variâncias) ---")
@@ -45,9 +45,9 @@ grupo_quente = df.loc[df["Temp_media"] >= mediana_temp, "Rendimento_medio_cafe_k
 grupo_frio   = df.loc[df["Temp_media"] <  mediana_temp, "Rendimento_medio_cafe_kg_ha"]
 
 stat_lev, p_lev = stats.levene(grupo_quente, grupo_frio)
-resultado_lev = "✓ Variâncias homogêneas (p > 0.05)" if p_lev > 0.05 else "✗ Variâncias diferentes (p ≤ 0.05)"
+resultado_lev = "Variancias homogeneas (p > 0.05)" if p_lev > 0.05 else "Variancias diferentes (p <= 0.05)"
 print(f"  Grupos: anos mais quentes vs. anos mais frios")
-print(f"  Estatística W = {stat_lev:.4f} | p-valor = {p_lev:.4f} → {resultado_lev}")
+print(f"  Estatistica W = {stat_lev:.4f} | p-valor = {p_lev:.4f} -> {resultado_lev}")
 print()
 
 # QQ-Plot – inspeção visual da normalidade
@@ -61,6 +61,7 @@ for ax, (nome, serie) in zip(axes_qq, variaveis.items()):
     ax.get_lines()[1].set(color = "#E53935", linewidth = 1.5)
 
 plt.tight_layout()
+plt.savefig("qqplot_normalidade.png", dpi=150, bbox_inches="tight")
 plt.show()
 
 print("=" * 55)
@@ -89,20 +90,20 @@ def interpretar_d(d):
 d1 = cohens_d(grupo_quente, grupo_frio)
 print(f"\nComparação: Rendimento café (anos mais quentes vs. mais frios)")
 print(f"  Média quentes: {grupo_quente.mean():.1f} kg/ha | Média frios: {grupo_frio.mean():.1f} kg/ha")
-print(f"  Cohen's d = {d1:.3f} → efeito {interpretar_d(d1)}")
+print(f"  Cohen's d = {d1:.3f} -> efeito {interpretar_d(d1)}")
 
-# Comparação 2: rendimento em anos de muita vs. pouca chuva
+# Comparacao 2: rendimento em anos de muita vs. pouca chuva
 mediana_chuva  = df["Chuva_total"].median()
 rend_chuva_alt = df.loc[df["Chuva_total"] >= mediana_chuva, "Rendimento_medio_cafe_kg_ha"]
 rend_chuva_bx  = df.loc[df["Chuva_total"] < mediana_chuva, "Rendimento_medio_cafe_kg_ha"]
 
 d2 = cohens_d(rend_chuva_alt, rend_chuva_bx)
-print(f"\nComparação: Rendimento café (anos chuvosos vs. secos)")
-print(f"  Média chuvosos: {rend_chuva_alt.mean():.1f} kg/ha | Média secos: {rend_chuva_bx.mean():.1f} kg/ha")
-print(f"  Cohen's d = {d2:.3f} → efeito {interpretar_d(d2)}")
+print(f"\nComparacao: Rendimento cafe (anos chuvosos vs. secos)")
+print(f"  Media chuvosos: {rend_chuva_alt.mean():.1f} kg/ha | Media secos: {rend_chuva_bx.mean():.1f} kg/ha")
+print(f"  Cohen's d = {d2:.3f} -> efeito {interpretar_d(d2)}")
 
 t_stat, t_p = stats.ttest_ind(rend_chuva_alt, rend_chuva_bx)
-print(f"  Teste t → t = {t_stat:.3f} | p = {t_p:.4f}")
+print(f"  Teste t -> t = {t_stat:.3f} | p = {t_p:.4f}")
 
 print()
 print("=" * 55)
@@ -112,16 +113,16 @@ print()
 print("PRESSUPOSTOS:")
 for nome, serie in variaveis.items():
     _, p = stats.shapiro(serie)
-    tag = "Normal" if p > 0.05 else "Não-normal"
-    print(f"  {nome:35s} → {tag} (p = {p:.4f})")
+    tag = "Normal" if p > 0.05 else "Nao-normal"
+    print(f"  {nome:35s} -> {tag} (p = {p:.4f})")
 
-print(f"\n  Homogeneidade de variâncias (Levene): p = {p_lev:.4f}")
+print(f"\n  Homogeneidade de variancias (Levene): p = {p_lev:.4f}")
 if p_lev > 0.05:
-    print("  → Variâncias homogêneas ✓ (pressuposto do t-test atendido)")
+    print("  -> Variancias homogeneas (pressuposto do t-test atendido)")
 else:
-    print("  → Variâncias diferentes ✗ (usar Welch's t-test)")
+    print("  -> Variancias diferentes (usar Welch's t-test)")
 
 print()
 print("TAMANHO DE EFEITO:")
-print(f"  Quente vs. Frio (rendimento):  d = {d1:.3f} → {interpretar_d(d1)}")
-print(f"  Chuvoso vs. Seco (rendimento): d = {d2:.3f} → {interpretar_d(d2)}")
+print(f"  Quente vs. Frio (rendimento):  d = {d1:.3f} -> {interpretar_d(d1)}")
+print(f"  Chuvoso vs. Seco (rendimento): d = {d2:.3f} -> {interpretar_d(d2)}")

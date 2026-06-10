@@ -64,6 +64,7 @@ ax1.legend(fontsize = 10)
 ax1.grid(axis = "y", alpha = 0.4)
 
 plt.tight_layout()
+plt.savefig("graf_boxplot_grupos.png", dpi=150, bbox_inches="tight")
 plt.show()
 
 # Figura 2 – Scatter: Temperatura x Rendimento + regressão
@@ -91,6 +92,7 @@ ax2.legend(fontsize = 10)
 ax2.grid(alpha = 0.3)
 
 plt.tight_layout()
+plt.savefig("graf_scatter_regressao.png", dpi=150, bbox_inches="tight")
 plt.show()
 
 # Figura 3 – Linha dupla: Rendimento + Chuva ao longo dos anos
@@ -114,6 +116,7 @@ ax_r.tick_params(axis = "x", rotation = 45)
 ax_r.grid(alpha = 0.3)
 
 plt.tight_layout()
+plt.savefig("graf_linha_rendimento_chuva.png", dpi=150, bbox_inches="tight")
 plt.show()
 
 # Figura 4 – Ilustração visual do Cohen's d
@@ -144,4 +147,5 @@ ax4.legend(fontsize = 10)
 ax4.grid(alpha = 0.3)
 
 plt.tight_layout()
+plt.savefig("graf_cohens_d_curvas.png", dpi=150, bbox_inches="tight")
 plt.show()
