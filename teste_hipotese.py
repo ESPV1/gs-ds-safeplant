@@ -121,7 +121,6 @@ ax2.set_title(f"Por Precipitação\nt = {t_stat2:.3f} | p = {p_valor2:.4f}")
 ax2.grid(axis="y", alpha=0.3)
 
 plt.tight_layout()
-plt.savefig("teste_hipotese.png", dpi=150, bbox_inches="tight")
 plt.show()
 
 print("\nGráfico salvo: teste_hipotese.png")

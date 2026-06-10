@@ -43,7 +43,6 @@ for ax, (col, label, cor) in zip(axes, variaveis_clima):
     ax.grid(axis="y", alpha=0.3)
 
 plt.tight_layout()
-plt.savefig("hist_clima.png", dpi=150, bbox_inches="tight")
 plt.show()
 
 fig2, axes2 = plt.subplots(1, 2, figsize=(12, 5))
@@ -61,7 +60,6 @@ for ax, (col, label, cor) in zip(axes2, variaveis_cafe):
     ax.grid(axis="y", alpha=0.3)
 
 plt.tight_layout()
-plt.savefig("hist_cafe.png", dpi=150, bbox_inches="tight")
 plt.show()
 
 print("Histogramas gerados: hist_clima.png, hist_cafe.png")

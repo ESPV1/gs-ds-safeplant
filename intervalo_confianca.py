@@ -71,7 +71,6 @@ ax.set_ylabel("Valor médio com IC 95%", fontsize=11)
 ax.set_title("Intervalos de Confiança (95%) por Variável", fontsize=13, fontweight="bold")
 ax.grid(axis="y", alpha=0.3)
 plt.tight_layout()
-plt.savefig("intervalos_confianca.png", dpi=150, bbox_inches="tight")
 plt.show()
 
 print("\nGráfico salvo: intervalos_confianca.png")
